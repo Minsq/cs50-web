@@ -1,0 +1,14 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Edit
+{% endblock %}
+
+{% block body %}
+    <h1>Edit Markdown for {{ title }}</h1>
+        
+    <textarea name="page_markdown" rows="5" cols="5">{{ markup }}</textarea>
+
+    <input type="submit" value="Save edits">
+
+{% endblock %}
