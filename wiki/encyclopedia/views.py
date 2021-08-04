@@ -26,6 +26,7 @@ def title(request, title):
 
 
 def search(request):
+
 	q = request.GET['q']
 
 	entries = util.list_entries()
@@ -58,5 +59,27 @@ def create(request):
 	return render(request, "encyclopedia/create.html")
 
 def edit(request, title):
-	return render(request, "encyclopedia/edit.html")
+	if request.method == "POST": 
+		# save page
+		title = request.POST['page_title']
+		text_markdown = request.POST['page_markdown']
 
+		# save the page
+		util.save_entry(title, text_markdown)
+		return HttpResponseRedirect(reverse('title', args=[title]))
+	
+	# not needed since get request.
+	# btn = request.POST.get('submit-button') #.get(name_of_button); variable stores the value attribute of button
+	
+	# render the edit page
+	entry = util.get_entry(title)
+
+	return render(request, "encyclopedia/edit.html", {
+		"title": title,
+		"markup": entry
+		})
+def random(request):
+	import random
+	entries = util.list_entries()
+	random_entry = random.choice(entries)
+	return HttpResponseRedirect(reverse('title', args=[random_entry]))

@@ -5,8 +5,9 @@
 {% endblock %}
 
 {% block body %}
-	<form action="{% url 'edit' title %}">
-		<input type="button" value="edit">
+	<form action="{% url 'edit' title %}" method="get">
+		
+		<input name="submit-button" type="submit" value="edit">
 	</form>
    
 	{{ entry | safe }}

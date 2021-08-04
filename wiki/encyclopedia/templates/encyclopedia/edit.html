@@ -6,9 +6,14 @@
 
 {% block body %}
     <h1>Edit Markdown for {{ title }}</h1>
-        
-    <textarea name="page_markdown" rows="5" cols="5">{{ markup }}</textarea>
+    <form action="{% url 'edit' title %}" method="post">
+        {% csrf_token %}
 
-    <input type="submit" value="Save edits">
+        <input type="text" name="page_title" autofocus placeholder="Name of page" value="{{ title }}"> <br>
+
+        <textarea name="page_markdown" rows="5" cols="5">{{ markup }}</textarea> <br>
+
+        <input type="submit" value="Save">
+    </form>
 
 {% endblock %}
