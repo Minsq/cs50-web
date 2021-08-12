@@ -2,7 +2,7 @@
 Design a front-end for Google Search, Google Image Search, and Google Advanced Search.
 
 - [project link](https://cs50.harvard.edu/web/2020/projects/0/)
-- [screen cast](https://www.youtube.com/watch?v=x4mUqAi3Upw)
+- [project screencast](https://www.youtube.com/watch?v=x4mUqAi3Upw)
 
 ## Background
 Recall from lecture that we can create an HTML form using a <form> tag and can add <input> tags to create input fields for that form. Later in the course, we’ll see how to write web applications that can accept form data as input. For this project, we’ll write forms that send data to an existing web server: in this case, Google’s.
