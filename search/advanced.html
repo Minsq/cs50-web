@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="styles.css">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+        <title>Advanced search</title>
+
+    </head>
+    <body>
+        <div class="container">
+            <ul class="nav">
+                <li class="nav-item"><a class="nav-link active" href="./index.html">Search</a></li>
+                <li class="nav-item"><a class="nav-link" href="./image.html">Image Search</a></li>
+                <li class="nav-item"><a class="nav-link" href="./advanced.html">Advanced Search</a></li>
+            
+            </ul>
+            
+            <div id='advanced_title'>Advanced Search</div>
+            <hr>
+            <form id="advanced_search" action="https://www.google.com/search">
+                <div>Find pages with...</div><br>
+                
+                <div class="row">
+                    <div class="col">
+                        <label for="all_words">all these words:</label>
+                    </div>
+                    <div class="col-6">
+                        <input class='adv_input' type="text" name='as_q' autofocus>
+                    </div>
+                    <div class="col"></div>
+                    
+                    
+                </div>
+                <div class="row">
+                
+                    <div class="col"><label for="exact_words">this exact word or phrase:</label></div>
+                    <div class="col-6">
+                        <input class='adv_input' type="text" name='as_epq'>
+                    </div>
+                    <div class="col"></div>
+                    
+                </div>
+                <div class="row">
+                
+                    <div class="col"><label for="any_words">any of these words:</label></div>
+                    <div class="col-6"><input class='adv_input' type="text" name='as_oq'></div> 
+                    <div class="col"></div>
+                    
+                </div>
+                <div class="row">
+                
+                    <div class="col"><label for="none_words">none of these words:</label></div>
+                    <div class="col-6"><input class='adv_input' type="text" name='as_eq'></div>
+                    <div class="col"></div>
+                    
+                </div>
+
+                <div class="row">
+                    <div class="col-6"></div>
+                    <div class="col-3">
+                        <input id="adv_button" class="btn btn-primary" type="submit" value="Advanced Search">
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </body>
+
+</html>
+
+<!-- <div style="clear:both;font-size:13px;line-height:18px;margin-bottom:90px"><div class="lFApYd"><div class="lOTAE"><span>You can also...</span></div></div><div style="clear:both"><a href="https://support.google.com/websearch?p=adv_pages_similar&amp;hl=en">Find pages that are similar to a URL</a></div><div><a href="https://support.google.com/websearch?p=adv_pages_visited&amp;hl=en">Search pages that you've visited</a></div><div><a href="https://support.google.com/websearch?p=adv_operators&amp;hl=en">Use operators in the search box</a></div><div><a href="/preferences?hl=en-SG">Customise your search settings</a></div></div> -->
