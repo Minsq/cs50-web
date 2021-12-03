@@ -1,0 +1,59 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <form action="{% url 'create' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <input hidden name='{{ form.seller.html_name }}' value='{{ session_user }}' >
+        
+        <div class="row mb-3">
+            <div class='col-3'>
+                <label class="form-label" for="{{ form.title.id_for_label }}">Name of item:</label>
+            </div>
+            <div class='col-6'>
+                <input class="form-control" name='{{ form.title.html_name }}' autofocus> 
+            </div>
+
+        </div>
+
+        <div class="row mb-3">
+            <div class='col-3'>
+                <label class="form-label" for="{{ form.description.id_for_label }}">{{ form.description.label }}:</label>
+            </div>
+            <div class='col-6'>
+                <textarea class="form-control" name='{{ form.description.html_name }}' placeholder ='How would you describe the item'></textarea>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class='col-3'>
+                <label class="form-label" for="{{ form.start_price.id_for_label }}">{{ form.start_price.label }}:</label>
+            </div>
+            <div class='col-3'>
+                <input type='number' class="form-control" name='{{ form.start_price.html_name }}' step='any' placeholder="Amount ($)">
+            </div>
+            <div class='col-3'>
+                <select class="form-control" name='{{ form.category.html_name }}' id="{{ form.category.id_for_label }}">
+                    <option value='' selected='' disabled>Select category</option>
+                    {% for choice in form.category %}
+                        <option value='{{ choice.data.value }}'>{{ choice.choice_label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class='col-3'>
+                <label class="form-label" for="{{ form.image.id_for_label }}">Upload Image (optional):</label>
+            </div>
+            <div class='col-3'>
+                {{ form.image }}
+                <!-- <input type='file' name='{{ form.image.html_name }}' accept="image/*"> -->
+            </div>
+            
+        </div>
+        
+
+        <input class='btn btn-primary' type='submit' value='create'> 
+    </form>
+  
+{% endblock %}

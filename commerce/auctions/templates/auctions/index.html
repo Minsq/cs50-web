@@ -1,0 +1,39 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+    {% for listing in listings %}
+
+        <div class = 'row contain-listing'>
+
+            <div class='col-4'>
+
+                <h6 style="display:inline"><a href="{% url 'categories' listing.category %}" class="badge badge-primary"> {{ listing.category }} </a></h6><br>
+
+                {% if listing.image.url != "" %}
+                    <img src="{{ listing.image.url }} " alt="{{ listing.title }}">
+                {% else %}
+                    No image.
+                {% endif %}
+                
+            </div>
+            <div class='col-6'>
+                <h4>{{ listing.title }} </h4>  
+                <b>Listed by: </b><span>{{ listing.seller }}</span><br>
+                <b>Description: </b><span>{{ listing.description }}</span><br>
+                <b>Start bid: </b><span>${{ listing.start_price }}</span><br> 
+                <b>Created on: </b><span>{{ listing.creation_timestamp }}</span>
+            </div>
+            <div class='col-2 d-flex justify-content-center'>
+                <form action="{% url 'bid' listing.pk %}">
+                    <input class='btn btn-primary bidButton' type="submit" value="Make a Bid" data-product_id='{{ listing.pk }}'>
+                </form>
+            </div>
+
+        </div>
+
+    {% empty %}
+        No listings.
+    {% endfor %}
+  
+{% endblock %}

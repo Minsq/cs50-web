@@ -1,0 +1,63 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    <h2>Categories</h2>
+    Click to filter for listings:
+    {% for category in categories %}
+
+    <a href="{% url 'categories' category.category %}" class="badge badge-primary"> {{ category.category }} </a>
+ 
+    {% empty %}
+        No categories.
+    {% endfor %}
+    <br>
+    
+	{% if category_name != 'all' %}
+
+
+    	{% for listing in listings %}
+
+        <div class = 'row contain-listing'>
+
+            <div class='col-4'>
+            	{% if listing.status %}
+		            
+		            <h6 style="display:inline"><a href="#" class="badge badge-warning float-right"> active </a></h6><br>
+		        {% else %}
+		            <h6 style="display:inline"><a href="#" class="badge badge-secondary float-right"> closed </a></h6><br>
+		        {% endif %}
+
+                {% if listing.image.url != "" %}
+                    <img src="{{ listing.image.url }} " alt="{{ listing.title }}">
+                {% else %}
+                    No image.
+                {% endif %}
+                
+            </div>
+            <div class='col-6'>
+                <h4>{{ listing.title }} </h4>  
+                <b>Listed by: </b><span>{{ listing.seller }}</span><br>
+                <b>Description: </b><span>{{ listing.description }}</span><br>
+                <b>Start bid: </b><span>${{ listing.start_price }}</span><br> 
+                <b>Created on: </b><span>{{ listing.creation_timestamp }}</span>
+            </div>
+            <div class='col-2 d-flex justify-content-center'>
+                <form action="{% url 'bid' listing.pk %}">
+                    <input class='btn btn-primary bidButton' type="submit" value="View auction" data-product_id='{{ listing.pk }}'>
+                </form>
+            </div>
+
+        </div>
+
+	   
+	    {% endfor %}
+
+	    	
+	{% endif %}
+
+
+
+
+
+{% endblock %}

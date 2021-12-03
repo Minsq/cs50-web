@@ -1,0 +1,125 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <!-- item header and add to watchlist -->
+    <h2>
+        Listing: {{ listing.title }} 
+        <!-- <form action="{% url 'add_to_watchlist' listing.pk %}"> 
+            <button class="btn btn-secondary btn-sm">Add to watchlist</button>
+        </form> -->
+        {% if listing.status %}
+            <button type="button" class="btn btn-warning btn-sm">active</button>
+        {% else %}
+            <button type="button" class="btn btn-secondary btn-sm">closed</button>
+        {% endif %}
+
+        {% if on_watchlist %}
+            <a href="{% url 'add_to_watchlist' listing.pk %}" role="button" class="btn btn-dark btn-sm">Remove from watchlist</a>
+            <h6><a href="#" class="badge badge-dark"> watchlist </a></h6>
+        {% else %}
+            <a href="{% url 'add_to_watchlist' listing.pk %}" role="button" class="btn btn-outline-dark btn-sm">Add to watchlist</a>
+        {% endif %}
+    </h2>
+    
+    <!-- item image -->
+    <div style="width: 100%; height: 300px; margin:auto; text-align: center ">
+    {% if listing.image.url != "" %}
+        <img src="{{ listing.image.url }} " alt="{{ listing.title }}">
+    {% else %}
+        No image.
+    {% endif %}
+    </div>
+    <!-- item description and bid details -->
+    {{ listing.description }}<br>
+
+    <h2>Current bid:<span>${{ bid_dict.latest_bid_price }}</span></h2>
+
+    Start bid: <span>${{ listing.start_price }}</span>. <br>
+    <span> {{ bid_dict.num_bids }} </span> bid(s) so far. 
+    {% if request.user == bid_dict.latest_bidder %}
+        <span> You </span> are the current highest bidder.
+    {% else %}
+        <span> {{ bid_dict.latest_bidder }} </span> is the current highest bidder. 
+    {% endif %}
+    <br>
+    <!-- check if auction has not closed -->
+    {% if listing.status %}
+        <!-- check if this is creator or prospective buyer -->
+        {% if listing.seller == request.user %}
+            
+            <form action="{% url 'close_auction' listing.pk %}" method="post">
+                {% csrf_token %}
+                <input class='btn btn-outline-danger' type='submit' value='Close auction'> 
+            </form>
+            
+        {% else %}
+        
+            <form action="{% url 'bid' listing.pk %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <input class="form-control" name='bid_price' placeholder="Bid"> <br>
+
+                <input class='btn btn-primary' type='submit' value='Place bid'> 
+            </form>
+
+        {% endif %}
+    {% else %}
+        <!-- if auction has closed -->
+        {% if request.user == listing.winner %}
+            <input class='btn btn-outline-info' type='submit' value='Congrats! You have won the auction.'>
+        {% elif request.user == listing.seller %}
+            <input class='btn btn-outline-info' type='submit' value='Auction has closed.'>
+        {% endif %}
+
+
+    {% endif %}
+
+    <br>
+
+    <h2>Details</h2>
+    <ul>
+        <li><b>Listed by: </b><span>{{ listing.seller }}</span><br></li>
+        <li><b>Category: </b><span>{{ listing.category }}</span><br></li>
+        <li><b>Created on: </b><span>{{ listing.creation_timestamp }}</span></li>
+
+    </ul>
+    
+    <h2>Comments</h2>
+    {% for comm in comments %}
+        <div class="row"> 
+            <div class='col-2'>
+                <h5 class="float-right"><span class="badge badge-pill badge-light">{{ comm.commenter }}:</span></h5>
+            </div>
+            <div class='col-6'>
+                <span> {{ comm.comment }}</span>
+            </div>
+            <div class='float-right'>
+                <h6><span class="badge badge-pill badge-light">{{ comm.comment_date }}</span></h6>
+
+        </div>
+
+        </div>
+        
+    {% empty %}
+       No comments.
+    {% endfor %}
+    <form action="{% url 'comment' listing.pk %}" method="post">
+        {% csrf_token %}
+        <div class="row mb-3">
+            <div class='col-9'>
+                <textarea class="form-control" name='{{ comment_form.comment.html_name }}' placeholder ='Add your comments.'></textarea>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class='col-9 '>
+                <input class='btn btn-primary float-right' type='submit' value='Chat away'>
+            </div>
+        </div>
+  
+            
+        
+    </form>
+    
+
+  
+{% endblock %}
